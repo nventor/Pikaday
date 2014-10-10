@@ -455,7 +455,7 @@
                 date = new Date(Date.parse(opts.field.value));
             }
             self.setDate(isDate(date) ? date : null);
-            if (!self._v) {
+            if (!self._v && opts.bound) {
                 self.show();
             }
         };
@@ -951,8 +951,12 @@
                 this.draw();
                 if (this._o.bound) {
                     addEvent(document, 'click', this._onClick);
-                    this.adjustPosition();
                 }
+
+                //should adjust position for either bound/unbound
+                //@todo: if required, add an configuration option for adjustPosition
+                this.adjustPosition();
+
                 if (typeof this._o.onOpen === 'function') {
                     this._o.onOpen.call(this);
                 }
